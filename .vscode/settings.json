@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "MerchantFrame",
+        "MerchantFrameCloseButton",
+        "SlashCmdList",
+        "StaticPopup_Show",
+        "Settings"
+    ]
+}

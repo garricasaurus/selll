@@ -1,0 +1,12 @@
+## Interface: 100205
+## Version: 1.0.0
+## SavedVariables: Conf
+## Title: Selll
+## Notes: Sell Low Level Items Automatically
+## IconTexture: Interface/ICONS/INV_Misc_AzsharaCoin.PNG
+## Author: garric
+
+merchant.lua
+items.lua
+commands.lua
+main.lua
