@@ -4,6 +4,8 @@
         "MerchantFrameCloseButton",
         "SlashCmdList",
         "StaticPopup_Show",
-        "Settings"
+        "Settings",
+        "MerchantSellAllJunkButton",
+        "Conf"
     ]
 }

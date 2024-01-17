@@ -29,11 +29,16 @@ local sellableItemTypes = {
 }
 
 function items:SellLowLevelItems(ilvl_limit)
+    local count = 0
     for bag = 0, 4 do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
             if self:shouldSellItem(ilvl_limit, bag, slot) then
                 if addon.isMerchantFrameOpen() then
                     C_Container.UseContainerItem(bag, slot)
+                    count = count + 1
+                    if Conf.safeSell and count == Conf.safeSellCount then
+                        return
+                    end
                 else
                     print("You must open the merchant window to sell items!")
                     return
