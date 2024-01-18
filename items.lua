@@ -1,7 +1,5 @@
 local _, addon = ...
 
-local items = {}
-
 local sellableItemTypes = {
     [1] = true,  -- head
     [2] = true,  -- neck
@@ -27,6 +25,16 @@ local sellableItemTypes = {
     [26] = true, -- ranged
     [28] = true, -- relic
 }
+
+local items = {}
+
+addon.Sell = function (ilvl)
+    C_MerchantFrame.SellAllJunkItems()
+    if not ilvl then
+        ilvl = Conf.lowLevelThreshold * GetAverageItemLevel()
+    end
+    items:SellLowLevelItems(ilvl)
+end
 
 function items:SellLowLevelItems(ilvl_limit)
     local count = 0
@@ -61,5 +69,3 @@ function items:shouldSellItem(ilvl_limit, bag, slot)
     end
     return false
 end
-
-addon.items = items

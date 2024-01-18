@@ -1,13 +1,17 @@
 ## Interface: 100205
 ## Version: 1.0.0
 ## SavedVariables: Conf
-## Title: Selll
+## Title: Sell[L]
 ## Notes: Sell Low Level Items Automatically
 ## IconTexture: Interface/ICONS/INV_Misc_Coin_01.PNG
 ## Author: garric
 
-settings.lua
-merchant.lua
+strings.lua
+
+ui/merchant.lua
+ui/util.lua
+ui/settings.lua
+
 items.lua
 commands.lua
 main.lua

@@ -11,7 +11,7 @@ local function SlashCommandHandler(msg, _)
     -- determine ilvl to sell
     if msg then
         local ilvl = tonumber(msg)
-        addon.main:Sell(ilvl)
+        addon.Sell(ilvl)
     end
 end
 

@@ -6,6 +6,8 @@
         "StaticPopup_Show",
         "Settings",
         "MerchantSellAllJunkButton",
-        "Conf"
+        "Conf",
+        "GameFontNormalLarge",
+        "GameFontHighlightSmall"
     ]
 }

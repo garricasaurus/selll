@@ -1,9 +1,5 @@
 local addonName, addon = ...
 
-local items = addon.items
-
-local main = {}
-
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(_, event, name)
@@ -16,12 +12,9 @@ frame:SetScript("OnEvent", function(_, event, name)
     end
 end)
 
-function main:Sell(ilvl)
-    C_MerchantFrame.SellAllJunkItems()
-    if not ilvl then
-        ilvl = Conf.lowLevelThreshold * GetAverageItemLevel()
-    end
-    items:SellLowLevelItems(ilvl)
-end
-
-addon.main = main
+addon.defaults = {
+    replaceBlizzButton = false,
+    lowLevelThreshold = 0.75,
+    safeSell = false,
+    safeSellCount = 12,
+}
