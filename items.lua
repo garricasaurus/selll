@@ -42,7 +42,9 @@ function items:SellLowLevelItems(ilvl_limit)
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
             if self:shouldSellItem(ilvl_limit, bag, slot) then
                 if addon.isMerchantFrameOpen() then
-                    C_Container.UseContainerItem(bag, slot)
+                    C_Timer.After(count * Conf.sellDelay, function()
+                        C_Container.UseContainerItem(bag, slot)
+                    end)
                     count = count + 1
                     if Conf.safeSell and count == Conf.safeSellCount then
                         return
@@ -58,7 +60,7 @@ end
 
 function items:shouldSellItem(ilvl_limit, bag, slot)
     local item = Item:CreateFromBagAndSlot(bag, slot)
-    if item then
+    if item and not item:IsItemEmpty() then
         local type = item:GetInventoryType()
         if sellableItemTypes[type] then
             local ilvl = item:GetCurrentItemLevel()
