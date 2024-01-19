@@ -13,6 +13,7 @@ ui/merchant.lua
 ui/settings.lua
 
 filters/common.lua
+filters/consumable.lua
 filters/equipment.lua
 filters/artifact.lua
 
