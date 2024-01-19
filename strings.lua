@@ -1,5 +1,7 @@
 local _, addon = ...
 
+addon.OpenMerchant = "You must have the merchant window open in order to sell items!"
+
 addon.SettingsTitle = "Selling Settings"
 addon.SafeSellText = "Safe Sell"
 addon.SafeSellHint = "When enabled, the addon will never sell more items in a single go, than what you can buy back."

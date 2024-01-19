@@ -48,7 +48,7 @@ function items:SellLowLevelItems(ilvl_limit)
                         return
                     end
                 else
-                    print("You must open the merchant window to sell items!")
+                    print(addon.OpenMerchant)
                     return
                 end
             end
