@@ -8,10 +8,12 @@
 
 strings.lua
 
+ui/components.lua
 ui/merchant.lua
-ui/util.lua
 ui/settings.lua
 
-items.lua
+filters/equipment.lua
+
+seller.lua
 commands.lua
 main.lua
