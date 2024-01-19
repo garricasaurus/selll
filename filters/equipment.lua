@@ -1,5 +1,6 @@
 local _, addon = ...
 
+-- Filter for selling low-level equipment items
 local filter = {}
 
 local sellableItemTypes = {
@@ -29,12 +30,7 @@ local sellableItemTypes = {
 }
 
 function filter:CanSell(item, ilvl_limit)
-    return self:belowThreshold(item, ilvl_limit) and self:isSellable(item)
-end
-
-function filter:belowThreshold(item, ilvl_limit)
-    local ilvl = item:GetCurrentItemLevel()
-    return ilvl > 0 and ilvl <= ilvl_limit
+    return addon.IsItemLevelBelowThreshold(item, ilvl_limit) and self:isSellable(item)
 end
 
 function filter:isSellable(item)

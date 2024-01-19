@@ -12,7 +12,9 @@ ui/components.lua
 ui/merchant.lua
 ui/settings.lua
 
+filters/common.lua
 filters/equipment.lua
+filters/artifact.lua
 
 seller.lua
 commands.lua

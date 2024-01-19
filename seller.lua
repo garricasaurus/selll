@@ -55,7 +55,7 @@ function seller:throttledSell(items)
             C_Timer.After(i * Conf.sellDelay, function()
                 local location = item:GetItemLocation()
                 if location then
-                    C_Container.UseContainerItem(location.bagID, location.slotIndex)    
+                    C_Container.UseContainerItem(location.bagID, location.slotIndex)
                 end
             end)
         else
