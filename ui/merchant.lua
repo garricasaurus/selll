@@ -15,7 +15,7 @@ local function CreateExtraButton()
         GameTooltip:Show()
     end)
     button:SetScript("OnClick", function ()
-        addon.main:Sell()
+        addon.Sell()
     end)
     return button
 end
@@ -25,6 +25,14 @@ MerchantFrame.extraButton = CreateExtraButton()
 MerchantFrame:HookScript("OnShow", function()
     isMerchantFrameOpen = true
     MerchantFrame.extraButton:SetShown(Conf.replaceBlizzButton)
+end)
+
+EventRegistry:RegisterCallback("MerchantFrame.MerchantTabShow", function ()
+    MerchantFrame.extraButton:SetShown(Conf.replaceBlizzButton)
+end)
+
+EventRegistry:RegisterCallback("MerchantFrame.BuyBackTabShow", function ()
+    MerchantFrame.extraButton:SetShown(false)
 end)
 
 MerchantFrame:HookScript("OnHide", function ()
