@@ -31,7 +31,7 @@ end
 
 function seller:bagContents()
     local res = {}
-    for bag = 0, 4 do
+    for bag = 0, 5 do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
             local item = Item:CreateFromBagAndSlot(bag, slot)
             if not item:IsItemEmpty() then

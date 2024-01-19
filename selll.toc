@@ -15,6 +15,7 @@ ui/settings.lua
 filters/common.lua
 filters/consumable.lua
 filters/equipment.lua
+filters/tradegood.lua
 filters/artifact.lua
 
 seller.lua

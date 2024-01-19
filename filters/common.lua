@@ -17,3 +17,20 @@ addon.MatchItemType = function(item, matchType, matchSubType)
     end
     return false
 end
+
+local legacyExpacs = {
+    [0] = true, -- vanilla
+    [1] = true, -- TBC
+    [2] = true, -- WotLK
+    [3] = true, -- Cata
+    [4] = true, -- Mists
+    [5] = true, -- WoD
+    [6] = true, -- Legion
+    [7] = true, -- BoA
+    [8] = true, -- SL
+}
+
+addon.IsItemFromOldXpac = function (item)
+    local xpac = select(15, GetItemInfo(item:GetItemID()))
+    return legacyExpacs[xpac]
+end

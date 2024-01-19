@@ -12,23 +12,10 @@ local types = {
     { itemType = Enum.ItemClass.Consumable, 5 },
 }
 
-local legacyExpacs = {
-    [0] = true, -- vanilla
-    [1] = true, -- TBC
-    [2] = true, -- WotLK
-    [3] = true, -- Cata
-    [4] = true, -- Mists
-    [5] = true, -- WoD
-    [6] = true, -- Legion
-    [7] = true, -- BoA
-    [8] = true, -- SL
-}
-
 function filter:CanSell(item, _)
     for _, t in ipairs(types) do
         if addon.MatchItemType(item, t.itemType, t.itemSubType) then
-            local xpac = select(15, GetItemInfo(item:GetItemID()))
-            return legacyExpacs[xpac]
+            return addon.IsItemFromOldXpac(item)
         end
     end
 end
