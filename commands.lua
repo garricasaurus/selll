@@ -1,11 +1,11 @@
 SLASH_SELLL1 = "/sell"
 SLASH_SELLL2 = "/selll"
 
-local _, addon = ...
+local name, addon = ...
 
 local function SlashCommandHandler(msg, _)
     if msg and msg == "config" then
-        print("config")
+        Settings.OpenToCategory(name)
         return
     end
     -- determine ilvl to sell
