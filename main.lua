@@ -14,7 +14,7 @@ frame:SetScript("OnEvent", function(_, event, name)
 end)
 
 addon.defaults = {
-    replaceBlizzButton = false,
+    replaceBlizzButton = true,
     lowLevelThreshold = 0.75,
     safeSell = false,
     safeSellCount = 12,
