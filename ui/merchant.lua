@@ -45,3 +45,7 @@ end)
 addon.isMerchantFrameOpen = function ()
     return isMerchantFrameOpen
 end
+
+addon.extraButtonEnabled = function (enabled)
+    MerchantFrame.extraButton:SetEnabled(enabled)
+end

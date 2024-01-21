@@ -47,6 +47,7 @@ function seller:canSell(item, ilvl_limit)
 end
 
 function seller:throttledSell(items)
+    self:disableSellButton(items)
     for i, item in ipairs(items) do
         if Conf.safeSell and i > Conf.safeSellCount then
             return
@@ -63,4 +64,11 @@ function seller:throttledSell(items)
             return
         end
     end
+end
+
+function seller:disableSellButton(items)
+   addon.extraButtonEnabled(false)
+   C_Timer.After(#items * Conf.sellDelay, function ()
+        addon.extraButtonEnabled(true)
+   end)
 end
