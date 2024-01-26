@@ -3,11 +3,17 @@ local _, addon = ...
 local seller = {}
 
 addon.Sell = function(ilvl_limit)
+    if not addon.isMerchantFrameOpen() then
+        print(addon.OpenMerchant)
+        return
+    end
     C_MerchantFrame.SellAllJunkItems()
     if not ilvl_limit then
         ilvl_limit = Conf.lowLevelThreshold * GetAverageItemLevel()
     end
-    seller:ImprovedSellJunkItems(ilvl_limit)
+    C_Timer.After(Conf.sellDelay, function()
+        seller:ImprovedSellJunkItems(ilvl_limit)
+    end)
 end
 
 function seller:ImprovedSellJunkItems(ilvl_limit)
@@ -52,23 +58,26 @@ function seller:throttledSell(items)
         if Conf.safeSell and i > Conf.safeSellCount then
             return
         end
-        if addon.isMerchantFrameOpen() then
-            C_Timer.After(i * Conf.sellDelay, function()
-                local location = item:GetItemLocation()
-                if location then
-                    C_Container.UseContainerItem(location.bagID, location.slotIndex)
-                end
-            end)
-        else
-            print(addon.OpenMerchant)
-            return
+        item:LockItem()
+        C_Timer.After(i * Conf.sellDelay, function()
+            self:trySellItem(item)
+        end)
+    end
+end
+
+function seller:trySellItem(item)
+    item:UnlockItem()
+    if addon.isMerchantFrameOpen() then
+        local location = item:GetItemLocation()
+        if location then
+            C_Container.UseContainerItem(location.bagID, location.slotIndex)
         end
     end
 end
 
 function seller:disableSellButton(items)
-   addon.extraButtonEnabled(false)
-   C_Timer.After(#items * Conf.sellDelay, function ()
+    addon.extraButtonEnabled(false)
+    C_Timer.After(#items * Conf.sellDelay, function()
         addon.extraButtonEnabled(true)
-   end)
+    end)
 end

@@ -1,0 +1,9 @@
+{
+    "diagnostics.globals": [
+        "C_Timer",
+        "C_Container",
+        "Item",
+        "GetAverageItemLevel",
+        "C_MerchantFrame"
+    ]
+}
