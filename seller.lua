@@ -9,9 +9,9 @@ addon.Sell = function(ilvl_limit)
     end
     C_MerchantFrame.SellAllJunkItems()
     if not ilvl_limit then
-        ilvl_limit = Conf.lowLevelThreshold * GetAverageItemLevel()
+        ilvl_limit = SellConf.lowLevelThreshold * GetAverageItemLevel()
     end
-    C_Timer.After(Conf.sellDelay, function()
+    C_Timer.After(SellConf.sellDelay, function()
         seller:ImprovedSellJunkItems(ilvl_limit)
     end)
 end
@@ -55,11 +55,11 @@ end
 function seller:throttledSell(items)
     self:disableSellButton(items)
     for i, item in ipairs(items) do
-        if Conf.safeSell and i > Conf.safeSellCount then
+        if SellConf.safeSell and i > SellConf.safeSellCount then
             return
         end
         item:LockItem()
-        C_Timer.After(i * Conf.sellDelay, function()
+        C_Timer.After(i * SellConf.sellDelay, function()
             self:trySellItem(item)
         end)
     end
@@ -77,7 +77,7 @@ end
 
 function seller:disableSellButton(items)
     addon.extraButtonEnabled(false)
-    C_Timer.After(#items * Conf.sellDelay, function()
+    C_Timer.After(#items * SellConf.sellDelay, function()
         addon.extraButtonEnabled(true)
     end)
 end

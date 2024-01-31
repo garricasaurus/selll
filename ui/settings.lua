@@ -21,19 +21,19 @@ thresholdHint:SetPoint("LEFT", thresholdSlider, "RIGHT", 50, 0)
 
 
 function frame:OnRefresh()
-    replaceBlizzCheckbox:SetChecked(Conf.replaceBlizzButton)
-    safeSellCheckbox:SetChecked(Conf.safeSell)
-    thresholdSlider:SetValue(Conf.lowLevelThreshold)
+    replaceBlizzCheckbox:SetChecked(SellConf.replaceBlizzButton)
+    safeSellCheckbox:SetChecked(SellConf.safeSell)
+    thresholdSlider:SetValue(SellConf.lowLevelThreshold)
 end
 
 function frame:OnCommit()
-    Conf.replaceBlizzButton = replaceBlizzCheckbox:GetChecked()
-    Conf.safeSell = safeSellCheckbox:GetChecked()
-    Conf.lowLevelThreshold = thresholdSlider:GetValue()
+    SellConf.replaceBlizzButton = replaceBlizzCheckbox:GetChecked()
+    SellConf.safeSell = safeSellCheckbox:GetChecked()
+    SellConf.lowLevelThreshold = thresholdSlider:GetValue()
 end
 
 function frame:OnDefault()
-    Conf = addon.defaults
+    SellConf = addon.defaults
 end
 
 -- integrate with options menu
