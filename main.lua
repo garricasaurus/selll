@@ -6,7 +6,7 @@ frame:SetScript("OnEvent", function(_, event, name)
     if event == "ADDON_LOADED" and name == addonName then
         SellConf = SellConf or {}
         for k, v in pairs(addon.defaults) do
-            if not SellConf[k] then
+            if SellConf[k] == nil then
                 SellConf[k] = v
             end
         end
