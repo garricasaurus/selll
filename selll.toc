@@ -1,5 +1,5 @@
 ## Interface: 100205
-## Version: 1.0.3
+## Version: 1.0.4
 ## SavedVariables: SellConf
 ## Title: Sell[L]
 ## Notes: Sell Low Level Items Automatically
