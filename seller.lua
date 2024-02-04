@@ -65,12 +65,22 @@ function seller:throttledSell(items)
     end
 end
 
-function seller:trySellItem(item)
+function seller:trySellItem(item, attempt)
+    attempt = attempt or 1
+    if attempt > SellConf.sellAttempts then
+        return -- failed to sell item, exit
+    end
     item:UnlockItem()
     if addon.isMerchantFrameOpen() then
         local location = item:GetItemLocation()
         if location then
             C_Container.UseContainerItem(location.bagID, location.slotIndex)
+        end
+        -- check if item is still there
+        if item:GetItemLocation() then
+            C_Timer.After(SellConf.sellDelay, function()
+                self:trySellItem(item, attempt + 1)
+            end)
         end
     end
 end
