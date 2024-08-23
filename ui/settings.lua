@@ -1,43 +1,47 @@
 local name, addon = ...
 
-local frame = CreateFrame("Frame", "SellSettingsFrame")
+local settings = {
+    defaults = {
+        replaceBlizzButton = true,
+        lowLevelThreshold = 0.75,
+        safeSell = false,
+        safeSellCount = 12,
+        sellDelay = 0.25,
+        sellAttempts = 3,
+    }
+}
 
-local title = addon.CreateText(frame, addon.SettingsTitle, "GameFontNormalLarge")
-local safeSellHint = addon.CreateText(frame, addon.SafeSellHint, "GameFontHighlightSmall")
-local safeSellCheckbox = addon.CreateCheckbox(frame, addon.SafeSellText)
-local replaceBlizzHint = addon.CreateText(frame, addon.ReplaceBlizzHint, "GameFontHighlightSmall")
-local replaceBlizzCheckbox = addon.CreateCheckbox(frame, addon.ReplaceBlizzText)
-local thresholdHint = addon.CreateText(frame, addon.ThresholdHint, "GameFontHighlightSmall", 225)
-local thresholdSlider = addon.CreateSlider(frame, addon.ThresholdText, 0.05, 0.95, 0.05)
+function settings:Init()
+    self.category, self.layout = Settings.RegisterVerticalLayoutCategory(name)
+    self.category.ID = name
 
--- align controls
-title:SetPoint("TOPLEFT", 20, -20)
-safeSellCheckbox:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -40)
-replaceBlizzCheckbox:SetPoint("TOPLEFT", safeSellCheckbox, "BOTTOMLEFT", 0, -40)
-thresholdSlider:SetPoint("TOPLEFT", replaceBlizzCheckbox, "BOTTOMLEFT", 0, -80)
-safeSellHint:SetPoint("LEFT", safeSellCheckbox, "RIGHT", 200, 0)
-replaceBlizzHint:SetPoint("LEFT", replaceBlizzCheckbox, "RIGHT", 200, 0)
-thresholdHint:SetPoint("LEFT", thresholdSlider, "RIGHT", 50, 0)
+    self.layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(addon.SettingsTitle))
+    self:CreateProxiedCheckBox(addon.SafeSellText, addon.SafeSellHint, "safeSell")
+    self:CreateProxiedCheckBox(addon.ReplaceBlizzText, addon.ReplaceBlizzHint, "replaceBlizzButton")
+    self:CreateProxiedSlider(addon.ThresholdText, addon.ThresholdHint, 0, 1, 0.01, "lowLevelThreshold")
 
-
-function frame:OnRefresh()
-    replaceBlizzCheckbox:SetChecked(SellConf.replaceBlizzButton)
-    safeSellCheckbox:SetChecked(SellConf.safeSell)
-    thresholdSlider:SetValue(SellConf.lowLevelThreshold)
+    Settings.RegisterAddOnCategory(self.category)
 end
 
-function frame:OnCommit()
-    SellConf.replaceBlizzButton = replaceBlizzCheckbox:GetChecked()
-    SellConf.safeSell = safeSellCheckbox:GetChecked()
-    SellConf.lowLevelThreshold = thresholdSlider:GetValue()
+function settings:CreateProxiedCheckBox(text, tooltip, variable)
+    local setting = Settings.RegisterAddOnSetting(self.category, variable, variable, SellConf,
+        Settings.VarType.Boolean, text, self.defaults[variable])
+    Settings.CreateCheckbox(self.category, setting, tooltip)
 end
 
-function frame:OnDefault()
-    SellConf = addon.defaults
+function settings:CreateProxiedSlider(name, tooltip, min, max, step, variable)
+    local sliderOptions = Settings.CreateSliderOptions(min, max, step)
+    if step < 1 then
+        sliderOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right,
+            function(v)
+                return string.format("%.2f", v)
+            end)
+    else
+        sliderOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right)
+    end
+    local setting = Settings.RegisterAddOnSetting(self.category, variable, variable, SellConf,
+        Settings.VarType.Number, name, self.defaults[variable])
+    Settings.CreateSlider(self.category, setting, sliderOptions, tooltip)
 end
 
--- integrate with options menu
-local settings = Settings.RegisterCanvasLayoutCategory(frame, "Sell[L]")
-settings.ID = name
-
-Settings.RegisterAddOnCategory(settings)
+addon.settings = settings

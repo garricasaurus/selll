@@ -4,6 +4,9 @@
         "C_Container",
         "Item",
         "GetAverageItemLevel",
-        "C_MerchantFrame"
+        "C_MerchantFrame",
+        "Settings",
+        "CreateSettingsListSectionHeaderInitializer",
+        "MinimalSliderWithSteppersMixin"
     ]
 }
