@@ -3,6 +3,7 @@
 ## SavedVariables: SellConf
 ## Title: Sell[L]
 ## Notes: Sell Low Level Items Automatically
+## AddonCompartmentFunc: Selll_OnAddonCompartmentClick
 ## IconTexture: Interface/ICONS/INV_Misc_Coin_01.PNG
 ## Author: garric
 
@@ -11,6 +12,7 @@ strings.lua
 ui/components.lua
 ui/merchant.lua
 ui/settings.lua
+ui/minimap.lua
 
 filters/common.lua
 filters/consumable.lua
